@@ -43,3 +43,5 @@
     updateWeek();
     setInterval(updateWeek, 60 * 60 * 1000); // uppdateras varje timme
   </script>
+</body>
+</html>

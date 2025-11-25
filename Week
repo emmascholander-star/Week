@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Veckonummer Widget</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #333;
+    }
+    .widget {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="widget" id="weekDisplay">Laddar...</div>
+
+  <script>
+    function getWeekNumber(date) {
+      const newDate = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      const dayNum = newDate.getUTCDay() || 7;
+      newDate.setUTCDate(newDate.getUTCDate() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(newDate.getUTCFullYear(), 0, 1));
+      return Math.ceil((((newDate - yearStart) / 86400000) + 1) / 7);
+    }
+
+    function updateWeek() {
+      const now = new Date();
+      const week = getWeekNumber(now);
+      document.getElementById("weekDisplay").textContent = "Vecka " + week;
+    }
+
+    updateWeek();
+    setInterval(updateWeek, 60 * 60 * 1000); // uppdateras varje timme
+  </script>
